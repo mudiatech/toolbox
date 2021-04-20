@@ -11,12 +11,12 @@ import java.util.function.Supplier;
 
 import org.testng.annotations.Test;
 
-public class AsyncTest {
+public class AsyncUtilsTest {
 
     @Test
     void testSupply_shouldReturnCompletableFuture() throws InterruptedException, ExecutionException {
         Supplier<Integer> supplier = () -> 1;
-        CompletableFuture<Integer> result = Async.supply(supplier);
+        CompletableFuture<Integer> result = AsyncUtils.supply(supplier);
         assertThat(result, not(nullValue()));
         assertThat(result.get(), is(1));
     }
@@ -26,7 +26,7 @@ public class AsyncTest {
         Supplier<Integer> supplier = () -> {
             throw new NullPointerException();
         };
-        CompletableFuture<Integer> result = Async.supply(supplier);
+        CompletableFuture<Integer> result = AsyncUtils.supply(supplier);
         assertThat(result, not(nullValue()));
         assertThat(result.get(), is(nullValue()));
     }
@@ -35,7 +35,7 @@ public class AsyncTest {
     void testRun_shouldReturnCompletableFuture() throws InterruptedException, ExecutionException {
         Runnable runnable = () -> {
         };
-        CompletableFuture<Void> result = Async.run(runnable);
+        CompletableFuture<Void> result = AsyncUtils.run(runnable);
         assertThat(result, not(nullValue()));
         assertThat(result.get(), is(nullValue()));
     }
@@ -45,7 +45,7 @@ public class AsyncTest {
         Runnable runnable = () -> {
             throw new NullPointerException();
         };
-        CompletableFuture<Void> result = Async.run(runnable);
+        CompletableFuture<Void> result = AsyncUtils.run(runnable);
         assertThat(result, not(nullValue()));
         assertThat(result.get(), is(nullValue()));
     }

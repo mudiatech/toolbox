@@ -8,9 +8,9 @@ import com.gitlab.muhammadkholidb.toolbox.exception.Exceptions;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class Async {
+public class AsyncUtils {
 
-    private Async() {
+    private AsyncUtils() {
     }
 
     public static <T> CompletableFuture<T> supply(Supplier<T> supplier) {
