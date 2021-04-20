@@ -1,4 +1,4 @@
-package com.gitlab.muhammadkholidb.gearbox.future;
+package com.gitlab.muhammadkholidb.toolbox.future;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -22,7 +22,7 @@ public class AsyncTest {
     }
 
     @Test
-    void testSupply_shouldReturnCompletableFutureOfNull() throws InterruptedException, ExecutionException {
+    void testSupply_throwsException_shouldReturnCompletableFuture() throws InterruptedException, ExecutionException {
         Supplier<Integer> supplier = () -> {
             throw new NullPointerException();
         };
@@ -41,7 +41,7 @@ public class AsyncTest {
     }
 
     @Test
-    void testRun_shouldThrowException() throws InterruptedException, ExecutionException {
+    void testRun_throwsException_shouldReturnCompletableFuture() throws InterruptedException, ExecutionException {
         Runnable runnable = () -> {
             throw new NullPointerException();
         };

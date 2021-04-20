@@ -1,9 +1,9 @@
-package com.gitlab.muhammadkholidb.gearbox.future;
+package com.gitlab.muhammadkholidb.toolbox.future;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-import com.gitlab.muhammadkholidb.gearbox.exception.Exceptions;
+import com.gitlab.muhammadkholidb.toolbox.exception.Exceptions;
 
 import lombok.extern.slf4j.Slf4j;
 

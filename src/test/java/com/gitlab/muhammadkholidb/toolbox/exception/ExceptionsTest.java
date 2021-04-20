@@ -1,4 +1,4 @@
-package com.gitlab.muhammadkholidb.gearbox.exception;
+package com.gitlab.muhammadkholidb.toolbox.exception;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

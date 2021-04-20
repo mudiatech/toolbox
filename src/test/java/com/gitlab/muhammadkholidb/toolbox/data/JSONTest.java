@@ -1,4 +1,4 @@
-package com.gitlab.muhammadkholidb.gearbox.data;
+package com.gitlab.muhammadkholidb.toolbox.data;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -74,13 +74,13 @@ public class JSONTest {
     }
 
     @Test
-    void testStringify_acceptPrettyPrint_withNullObject_shouldReturnJsonString() {
+    void testStringify_acceptPrettyPrint_withNullObject_shouldReturnNull() {
         String result = JSON.stringify(null, true);
         assertThat(result, is(nullValue()));
     }
 
     @Test
-    void testStringify_acceptPrettyPrint_failedToStringify_shouldReturnJsonString() {
+    void testStringify_acceptPrettyPrint_failedToStringify_shouldReturnNull() {
         String result = JSON.stringify(new Object(), true);
         assertThat(result, is(nullValue()));
     }
@@ -96,13 +96,13 @@ public class JSONTest {
     }
 
     @Test
-    void testStringify_withNullObject_shouldReturnJsonString() {
+    void testStringify_withNullObject_shouldReturnNull() {
         String result = JSON.stringify(null);
         assertThat(result, is(nullValue()));
     }
 
     @Test
-    void testStringify_failedToStringify_shouldReturnJsonString() {
+    void testStringify_failedToStringify_shouldReturnNull() {
         String result = JSON.stringify(new Object());
         assertThat(result, is(nullValue()));
     }

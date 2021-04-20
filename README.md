@@ -1,6 +1,6 @@
-# Gearbox
+# Toolbox
 
-Common utilities
+General-purpose utilities for Java projects
 
 
 #### How to Use
@@ -20,7 +20,7 @@ Common utilities
 ```xml
 <dependency>
     <groupId>com.gitlab.muhammadkholidb</groupId>
-    <artifactId>gearbox</artifactId>
+    <artifactId>toolbox</artifactId>
     <version>master-SNAPSHOT</version>
 </dependency>
 ```

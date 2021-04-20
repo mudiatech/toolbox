@@ -1,4 +1,4 @@
-package com.gitlab.muhammadkholidb.gearbox.exception;
+package com.gitlab.muhammadkholidb.toolbox.exception;
 
 public class Exceptions {
 

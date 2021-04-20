@@ -1,4 +1,4 @@
-package com.gitlab.muhammadkholidb.gearbox.data;
+package com.gitlab.muhammadkholidb.toolbox.data;
 
 import java.io.IOException;
 
