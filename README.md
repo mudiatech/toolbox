@@ -1,3 +1,6 @@
+[![pipeline status](https://gitlab.com/muhammadkholidb/toolbox/badges/master/pipeline.svg)](https://gitlab.com/muhammadkholidb/toolbox/-/commits/master) 
+[![coverage report](https://gitlab.com/muhammadkholidb/toolbox/badges/master/coverage.svg)](https://gitlab.com/muhammadkholidb/toolbox/-/commits/master)
+
 # Toolbox
 
 General-purpose utilities for Java projects
