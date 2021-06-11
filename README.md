@@ -1,5 +1,5 @@
-[![pipeline status](https://gitlab.com/muhammadkholidb/toolbox/badges/master/pipeline.svg)](https://gitlab.com/muhammadkholidb/toolbox/-/commits/master) 
-[![coverage report](https://gitlab.com/muhammadkholidb/toolbox/badges/master/coverage.svg)](https://gitlab.com/muhammadkholidb/toolbox/-/commits/master)
+<a href="https://gitlab.com/muhammadkholidb/toolbox/-/pipelines" target="_blank"><img alt="pipeline status" src="https://gitlab.com/muhammadkholidb/toolbox/badges/master/pipeline.svg" /></a> 
+<a href="https://gitlab.com/muhammadkholidb/toolbox/-/jobs" target="_blank"><img alt="coverage report" src="https://gitlab.com/muhammadkholidb/toolbox/badges/master/coverage.svg" /></a> 
 
 # Toolbox
 
