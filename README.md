@@ -7,7 +7,7 @@ General-purpose utilities for Java projects
 
 
 #### How to Use
-1. Add maven repository
+1. Add JitPack maven repository
 
 ```xml
 <repositories>
