@@ -11,7 +11,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import lombok.Data;
 

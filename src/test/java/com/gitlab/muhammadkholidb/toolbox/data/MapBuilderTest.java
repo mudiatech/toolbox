@@ -8,7 +8,7 @@ import static org.hamcrest.collection.IsMapWithSize.aMapWithSize;
 
 import java.util.Map;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 public class MapBuilderTest {
 

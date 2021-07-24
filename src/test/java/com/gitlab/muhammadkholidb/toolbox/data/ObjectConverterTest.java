@@ -8,6 +8,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,16 +17,15 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 public class ObjectConverterTest {
-    
-    private final ObjectConverter converter = new ObjectConverter(new ObjectMapper());
 
+    private final ObjectConverter converter = new ObjectConverter(new ObjectMapper());
 
     private final TestObject testObject = new TestObject("a", "b");
 
@@ -60,14 +60,19 @@ public class ObjectConverterTest {
         assertThat(result.getValue(), equalTo(testObject.getValue()));
     }
 
-    @Test(expectedExceptions = NullPointerException.class, expectedExceptionsMessageRegExp = "error" )
+    @Test
     void testConverOptionalOrThrow_empty_shouldThrowException() {
-        converter.convertOptionalOrThrow(Optional.ofNullable(null), TestObject.class, new NullPointerException("error"));
+        Optional<TestObject> optional = Optional.empty();
+        Exception ex = new Exception("error");
+        Exception result = assertThrows(Exception.class,
+                () -> converter.convertOptionalOrThrow(optional, TestObject.class, ex));
+        assertThat(result.getMessage(), equalTo("error"));
     }
 
     @Test
     void testConverOptionalOrThrow_notEmpty_shouldTSucceed() {
-        OtherObject result = converter.convertOptionalOrThrow(Optional.of(testObject), OtherObject.class, new NullPointerException("error"));
+        OtherObject result = converter.convertOptionalOrThrow(Optional.of(testObject), OtherObject.class,
+                new NullPointerException("error"));
         assertThat(result, notNullValue());
         assertThat(result.getName(), equalTo(testObject.getName()));
         assertThat(result.getValue(), equalTo(testObject.getValue()));
