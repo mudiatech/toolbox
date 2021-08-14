@@ -14,8 +14,6 @@ import java.util.Date;
 
 public class TimeUtils {
 
-    public static final String ISO_DATE_TIME_PATTERN = "";
-
     private TimeUtils() {
     }
 
