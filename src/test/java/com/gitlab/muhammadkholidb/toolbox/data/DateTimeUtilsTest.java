@@ -24,9 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DateTimeUtilsTest {
 
-    private static final TimeZone SYSTEM_TIMEZONE = TimeZone.getDefault();
     private static final ZoneId UTC = ZoneOffset.UTC;
-    private static final LocalDate TODAY = LocalDate.now();
     
     private ZonedDateTime zdtBase = ZonedDateTime.of(2020, 2, 22, 20, 22, 2, 0, ZoneId.of("Australia/Sydney"));
 
@@ -37,7 +35,7 @@ public class DateTimeUtilsTest {
 
     @AfterEach
     void tearDown() {
-        TimeZone.setDefault(SYSTEM_TIMEZONE);
+        TimeZone.setDefault(null);
     }
 
     @Test
@@ -134,19 +132,21 @@ public class DateTimeUtilsTest {
         result = DateTimeUtils.toInstant(datetime);
         assertInstant(result, 2020, 2, 22, 9, 22, 2);
 
+        LocalDate today = LocalDate.now();
+
         // date: 2020-02-22, time: 20:22:02 (+02:00 Africa/Cairo)
         // date: 2021-02-22, time: 18:22:02 UTC
         datetime = zdtBase.format(DateTimeFormatter.ISO_LOCAL_TIME);
         log.info("Formatted: {}", datetime);
         result = DateTimeUtils.toInstant(datetime);
-        assertInstant(result, TODAY.getYear(), TODAY.getMonthValue(), TODAY.getDayOfMonth(), 18, 22, 2);
+        assertInstant(result, today.getYear(), today.getMonthValue(), today.getDayOfMonth(), 18, 22, 2);
 
         // date: 2020-02-22, time: 20:22:02 (+11:00 Australia/Sydney)
         // date: 2021-02-22, time: 09:22:02 UTC
         datetime = zdtBase.format(DateTimeFormatter.ISO_OFFSET_TIME);
         log.info("Formatted: {}", datetime);
         result = DateTimeUtils.toInstant(datetime);
-        assertInstant(result, TODAY.getYear(), TODAY.getMonthValue(), TODAY.getDayOfMonth(), 9, 22, 2);
+        assertInstant(result, today.getYear(), today.getMonthValue(), today.getDayOfMonth(), 9, 22, 2);
     }
 
     @Test
@@ -167,7 +167,8 @@ public class DateTimeUtilsTest {
     void testToInstant_withOffsetTime() {
         OffsetTime ot = OffsetTime.of(20, 22, 2, 0, ZoneOffset.UTC);
         Instant result = DateTimeUtils.toInstant(ot);
-        assertInstant(result, TODAY.getYear(), TODAY.getMonthValue(), TODAY.getDayOfMonth(), 20, 22, 2);
+        LocalDate today = LocalDate.now();
+        assertInstant(result, today.getYear(), today.getMonthValue(), today.getDayOfMonth(), 20, 22, 2);
     }
 
     private void assertInstant(Instant instant, int year, int month, int date, int hour, int minute, int second) {
