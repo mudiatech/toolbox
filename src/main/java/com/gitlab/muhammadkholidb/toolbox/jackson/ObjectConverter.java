@@ -1,10 +1,11 @@
-package com.gitlab.muhammadkholidb.toolbox.data;
+package com.gitlab.muhammadkholidb.toolbox.jackson;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Data;
@@ -20,6 +21,7 @@ public class ObjectConverter {
      */
     public ObjectConverter() {
         this.mapper = new ObjectMapper();
+        this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         this.mapper.findAndRegisterModules();
     }
 

@@ -14,6 +14,7 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -91,6 +92,10 @@ public class DateTimeUtils {
         return toInstant(lt, ZoneId.systemDefault());
     }
 
+    public static ZoneOffset getDefaultZoneOffset() {
+        return ZoneOffset.ofTotalSeconds(TimeZone.getDefault().getRawOffset() / 1000);
+    }
+
     public static ZoneOffset parseZoneOffset(Calendar calendar) {
         // The same as datetime.getTimezoneOffset() (deprecated)
         int offsetMinutes = (calendar.get(Calendar.ZONE_OFFSET) + calendar.get(Calendar.DST_OFFSET)) / (60 * 1000);
@@ -113,8 +118,7 @@ public class DateTimeUtils {
                 if (DateTimeFormatter.ISO_INSTANT.equals(formatter)) {
                     return Instant.from(parsed);
                 }
-                if (DateTimeFormatter.BASIC_ISO_DATE.equals(formatter) 
-                        || DateTimeFormatter.ISO_DATE.equals(formatter)
+                if (DateTimeFormatter.BASIC_ISO_DATE.equals(formatter) || DateTimeFormatter.ISO_DATE.equals(formatter)
                         || DateTimeFormatter.ISO_ORDINAL_DATE.equals(formatter)
                         || DateTimeFormatter.ISO_WEEK_DATE.equals(formatter)) {
                     LocalDateTime ldt = LocalDate.from(parsed).atStartOfDay();
@@ -124,7 +128,8 @@ public class DateTimeUtils {
                     }
                     return toInstant(ldt);
                 }
-                if (DateTimeFormatter.ISO_DATE_TIME.equals(formatter) || DateTimeFormatter.RFC_1123_DATE_TIME.equals(formatter)) {
+                if (DateTimeFormatter.ISO_DATE_TIME.equals(formatter)
+                        || DateTimeFormatter.RFC_1123_DATE_TIME.equals(formatter)) {
                     if (parsed.isSupported(ChronoField.OFFSET_SECONDS)) {
                         return toInstant(ZonedDateTime.from(parsed));
                     }

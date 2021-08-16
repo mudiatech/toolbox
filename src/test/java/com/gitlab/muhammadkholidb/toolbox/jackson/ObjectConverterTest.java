@@ -1,4 +1,4 @@
-package com.gitlab.muhammadkholidb.toolbox.data;
+package com.gitlab.muhammadkholidb.toolbox.jackson;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gitlab.muhammadkholidb.toolbox.data.MapBuilder;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.gitlab.muhammadkholidb.toolbox.data;
+package com.gitlab.muhammadkholidb.toolbox.jackson;
 
 import java.io.IOException;
 
@@ -17,10 +17,10 @@ public class JSON {
     private JSON() {
     }
 
-    // Static initialization
     static {
         MAPPER = new ObjectMapper();
         MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        MAPPER.findAndRegisterModules();
     }
 
     public static <T> T parse(String json, Class<T> t) {

@@ -1,4 +1,4 @@
-package com.gitlab.muhammadkholidb.toolbox.data;
+package com.gitlab.muhammadkholidb.toolbox.jackson;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
