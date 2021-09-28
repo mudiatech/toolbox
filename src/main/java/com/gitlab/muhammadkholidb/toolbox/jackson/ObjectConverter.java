@@ -3,6 +3,8 @@ package com.gitlab.muhammadkholidb.toolbox.jackson;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -40,6 +42,7 @@ public class ObjectConverter {
      * @param <T>    the type of converted object
      * @param object an instance of object that will be converted
      * @param c      the type of object to be returned
+     * 
      * @return The converted object instance
      */
     public <T> T convertObject(Object object, Class<T> c) {
@@ -52,12 +55,18 @@ public class ObjectConverter {
      * @param <T>      the type of converted object
      * @param optional the Optional instance containing an object to convert
      * @param c        the type of object to be returned
+     * 
      * @return The converted object from Optional content, or null if empty. To
      *         throw an exception on empty Optional, use
      *         <code>convertOptionalOrThrow()</code>.
      */
-    public <T> T convertOptional(Optional<?> optional, Class<T> c) {
-        return optional.map(o -> convertObject(o, c)).orElse(null);
+    public <T> T convertOptional(Optional<?> optional, final Class<T> c) {
+        return optional.map(new Function<Object, T>() {
+            @Override
+            public T apply(Object object) {
+                return convertObject(object, c);
+            }
+        }).orElse(null);
     }
 
     /**
@@ -68,11 +77,24 @@ public class ObjectConverter {
      * @param optional the Optional instance containing an object to convert
      * @param c        the type of object to be returned
      * @param x        the exception instance to throw when Optional is empty
+     * 
      * @return The converted object from Optional content if present.
+     * 
      * @throws X The exception instance provided to this method.
      */
-    public <T, X extends Exception> T convertOptionalOrThrow(Optional<?> optional, Class<T> c, X x) throws X {
-        return optional.map(o -> convertObject(o, c)).orElseThrow(() -> x);
+    public <T, X extends Exception> T convertOptionalOrThrow(Optional<?> optional, final Class<T> c, final X x)
+            throws X {
+        return optional.map(new Function<Object, T>() {
+            @Override
+            public T apply(Object object) {
+                return convertObject(object, c);
+            }
+        }).orElseThrow(new Supplier<X>() {
+            @Override
+            public X get() {
+                return x;
+            }
+        });
     }
 
     /**
@@ -81,6 +103,7 @@ public class ObjectConverter {
      * @param <T>  the type of converted object
      * @param list a list instance that will be converted
      * @param c    the type of object to be returned
+     * 
      * @return The converted list of specified type.
      */
     public <T> List<T> convertList(List<?> list, Class<T> c) {
@@ -93,6 +116,7 @@ public class ObjectConverter {
      * @param <K>    the type of Map key
      * @param <V>    the type of Map value
      * @param object an instance of object that will be converted to Map
+     * 
      * @return A new Map consist of object properties.
      */
     public <K, V> Map<K, V> convertToMap(Object object) {

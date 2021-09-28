@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DateTimeUtilsTest {
 
     private static final ZoneId UTC = ZoneOffset.UTC;
-    
+
     private ZonedDateTime zdtBase = ZonedDateTime.of(2020, 2, 22, 20, 22, 2, 0, ZoneId.of("Australia/Sydney"));
 
     @BeforeEach

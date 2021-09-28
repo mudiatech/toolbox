@@ -22,13 +22,13 @@ import lombok.extern.slf4j.Slf4j;
 public class DateTimeUtils {
 
     // @formatter:off
-    public static final DateTimeFormatter[] FORMATTERS = new DateTimeFormatter[] { 
+    public static final DateTimeFormatter[] FORMATTERS = new DateTimeFormatter[] {
             DateTimeFormatter.BASIC_ISO_DATE,
-            DateTimeFormatter.ISO_DATE, 
-            DateTimeFormatter.ISO_DATE_TIME, 
+            DateTimeFormatter.ISO_DATE,
+            DateTimeFormatter.ISO_DATE_TIME,
             DateTimeFormatter.ISO_INSTANT,
-            DateTimeFormatter.ISO_ORDINAL_DATE, 
-            DateTimeFormatter.ISO_TIME, 
+            DateTimeFormatter.ISO_ORDINAL_DATE,
+            DateTimeFormatter.ISO_TIME,
             DateTimeFormatter.ISO_WEEK_DATE,
             DateTimeFormatter.RFC_1123_DATE_TIME };
     // @formatter:on
@@ -107,8 +107,8 @@ public class DateTimeUtils {
     }
 
     /**
-     * 
      * @param datetime
+     * 
      * @return
      */
     public static Instant toInstant(String datetime) {

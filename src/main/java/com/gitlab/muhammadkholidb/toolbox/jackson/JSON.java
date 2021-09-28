@@ -52,6 +52,7 @@ public class JSON {
      * sensitive data by default.
      *
      * @param object The object to print as JSON string.
+     * 
      * @return JSON string of the specified object.
      */
     public static String stringify(Object object) {
@@ -63,6 +64,7 @@ public class JSON {
      * 
      * @param object      The object to print as JSON string.
      * @param prettyPrint An option to print in formatted style.
+     * 
      * @return JSON string of the specified object.
      */
     public static String stringify(Object object, boolean prettyPrint) {

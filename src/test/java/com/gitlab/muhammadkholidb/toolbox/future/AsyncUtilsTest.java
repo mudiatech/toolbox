@@ -15,7 +15,12 @@ public class AsyncUtilsTest {
 
     @Test
     void testSupply_shouldReturnCompletableFuture() throws InterruptedException, ExecutionException {
-        Supplier<Integer> supplier = () -> 1;
+        Supplier<Integer> supplier = new Supplier<Integer>() {
+            @Override
+            public Integer get() {
+                return 1;
+            }
+        };
         CompletableFuture<Integer> result = AsyncUtils.supply(supplier);
         assertThat(result, not(nullValue()));
         assertThat(result.get(), is(1));
@@ -23,8 +28,11 @@ public class AsyncUtilsTest {
 
     @Test
     void testSupply_throwsException_shouldReturnCompletableFuture() throws InterruptedException, ExecutionException {
-        Supplier<Integer> supplier = () -> {
-            throw new NullPointerException();
+        Supplier<Integer> supplier = new Supplier<Integer>() {
+            @Override
+            public Integer get() {
+                throw new NullPointerException();
+            }
         };
         CompletableFuture<Integer> result = AsyncUtils.supply(supplier);
         assertThat(result, not(nullValue()));
@@ -33,7 +41,10 @@ public class AsyncUtilsTest {
 
     @Test
     void testRun_shouldReturnCompletableFuture() throws InterruptedException, ExecutionException {
-        Runnable runnable = () -> {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+            }
         };
         CompletableFuture<Void> result = AsyncUtils.run(runnable);
         assertThat(result, not(nullValue()));
@@ -42,8 +53,11 @@ public class AsyncUtilsTest {
 
     @Test
     void testRun_throwsException_shouldReturnCompletableFuture() throws InterruptedException, ExecutionException {
-        Runnable runnable = () -> {
-            throw new NullPointerException();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                throw new NullPointerException();
+            }
         };
         CompletableFuture<Void> result = AsyncUtils.run(runnable);
         assertThat(result, not(nullValue()));

@@ -15,8 +15,8 @@ public class SingletonStackTest {
         SingletonStack.INSTANCE.push("Test 1");
         SingletonStack.INSTANCE.push(2);
         assertThat(SingletonStack.INSTANCE.size(), is(2));
-        assertThat(SingletonStack.INSTANCE.pop(), is(2));
-        assertThat(SingletonStack.INSTANCE.pop(), is("Test 1"));
+        assertThat((int) SingletonStack.INSTANCE.pop(), is(2));
+        assertThat((String) SingletonStack.INSTANCE.pop(), is("Test 1"));
         assertThat(SingletonStack.INSTANCE.pop(), nullValue());
         SingletonStack.INSTANCE.push("Test 3");
         SingletonStack.INSTANCE.clear();

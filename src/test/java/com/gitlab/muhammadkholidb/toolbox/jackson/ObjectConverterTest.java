@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gitlab.muhammadkholidb.toolbox.data.MapBuilder;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -63,17 +64,20 @@ public class ObjectConverterTest {
 
     @Test
     void testConverOptionalOrThrow_empty_shouldThrowException() {
-        Optional<TestObject> optional = Optional.empty();
-        Exception ex = new Exception("error");
-        Exception result = assertThrows(Exception.class,
-                () -> converter.convertOptionalOrThrow(optional, TestObject.class, ex));
+        final Optional<TestObject> optional = Optional.empty();
+        final Exception ex = new Exception("error");
+        Exception result = assertThrows(Exception.class, new Executable() {
+            public void execute() throws Throwable {
+                converter.convertOptionalOrThrow(optional, TestObject.class, ex);
+            };
+        });
         assertThat(result.getMessage(), equalTo("error"));
     }
 
     @Test
     void testConverOptionalOrThrow_notEmpty_shouldTSucceed() {
-        OtherObject result = converter.convertOptionalOrThrow(Optional.of(testObject), OtherObject.class,
-                new NullPointerException("error"));
+        OtherObject result = converter
+                .convertOptionalOrThrow(Optional.of(testObject), OtherObject.class, new NullPointerException("error"));
         assertThat(result, notNullValue());
         assertThat(result.getName(), equalTo(testObject.getName()));
         assertThat(result.getValue(), equalTo(testObject.getValue()));
