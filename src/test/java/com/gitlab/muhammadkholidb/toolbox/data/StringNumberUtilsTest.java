@@ -1,8 +1,8 @@
 package com.gitlab.muhammadkholidb.toolbox.data;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.isEmptyString;
 import static org.hamcrest.Matchers.nullValue;
 
 import java.math.BigDecimal;
@@ -28,7 +28,7 @@ public class StringNumberUtilsTest {
     @Test
     void testToStringOrEmpty_forBigDecimal() {
         String result = StringNumberUtils.toStringOrEmpty((BigDecimal) null);
-        assertThat(result, isEmptyString());
+        assertThat(result, emptyString());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class StringNumberUtilsTest {
     @Test
     void testToStringOrEmpty_forInteger() {
         String result = StringNumberUtils.toStringOrEmpty((Integer) null);
-        assertThat(result, isEmptyString());
+        assertThat(result, emptyString());
     }
 
     @Test
