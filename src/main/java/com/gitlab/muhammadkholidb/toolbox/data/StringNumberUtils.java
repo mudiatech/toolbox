@@ -2,6 +2,7 @@ package com.gitlab.muhammadkholidb.toolbox.data;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 public class StringNumberUtils {
@@ -42,10 +43,7 @@ public class StringNumberUtils {
     }
 
     public static Integer toIntegerOrDefault(String str, Integer dflt) {
-        if (str == null) {
-            return dflt;
-        }
-        return NumberUtils.toInt(str);
+        return StringUtils.isNumeric(str) ? Integer.valueOf(str) : dflt;
     }
 
     public static Integer toIntegerOrNull(String str) {
