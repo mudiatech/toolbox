@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DateTimeUtils {
 
-    // @formatter:off
     public static final DateTimeFormatter[] FORMATTERS = new DateTimeFormatter[] {
             DateTimeFormatter.BASIC_ISO_DATE,
             DateTimeFormatter.ISO_DATE,
@@ -31,7 +30,6 @@ public class DateTimeUtils {
             DateTimeFormatter.ISO_TIME,
             DateTimeFormatter.ISO_WEEK_DATE,
             DateTimeFormatter.RFC_1123_DATE_TIME };
-    // @formatter:on
 
     private DateTimeUtils() {
     }
