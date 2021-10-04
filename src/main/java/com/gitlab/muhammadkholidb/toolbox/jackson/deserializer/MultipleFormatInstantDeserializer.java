@@ -1,4 +1,4 @@
-package com.gitlab.muhammadkholidb.toolbox.jackson;
+package com.gitlab.muhammadkholidb.toolbox.jackson.deserializer;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -8,11 +8,16 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.gitlab.muhammadkholidb.toolbox.data.DateTimeUtils;
 
-public class CustomInstantDeserializer extends JsonDeserializer<Instant> {
+public class MultipleFormatInstantDeserializer extends JsonDeserializer<Instant> {
+
+    @Override
+    public Class<?> handledType() {
+        return Instant.class;
+    }
 
     @Override
     public Instant deserialize(JsonParser jp, DeserializationContext ctx) throws IOException {
-        return DateTimeUtils.toInstant(jp.getText());
+        return DateTimeUtils.parseInstantWithDefaultFormatters(jp.getText());
     }
 
 }

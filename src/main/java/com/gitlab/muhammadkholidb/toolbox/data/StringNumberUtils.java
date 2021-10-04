@@ -2,7 +2,6 @@ package com.gitlab.muhammadkholidb.toolbox.data;
 
 import java.math.BigDecimal;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 public class StringNumberUtils {
@@ -34,6 +33,42 @@ public class StringNumberUtils {
         return toStringOrDefault(num, "");
     }
 
+    public static String toStringOrDefault(Long num, String dflt) {
+        return num == null ? dflt : num.toString();
+    }
+
+    public static String toStringOrNull(Long num) {
+        return toStringOrDefault(num, null);
+    }
+
+    public static String toStringOrEmpty(Long num) {
+        return toStringOrDefault(num, "");
+    }
+
+    public static String toStringOrDefault(Double num, String dflt) {
+        return num == null ? dflt : num.toString();
+    }
+
+    public static String toStringOrNull(Double num) {
+        return toStringOrDefault(num, null);
+    }
+
+    public static String toStringOrEmpty(Double num) {
+        return toStringOrDefault(num, "");
+    }
+
+    public static String toStringOrDefault(Float num, String dflt) {
+        return num == null ? dflt : num.toString();
+    }
+
+    public static String toStringOrNull(Float num) {
+        return toStringOrDefault(num, null);
+    }
+
+    public static String toStringOrEmpty(Float num) {
+        return toStringOrDefault(num, "");
+    }
+
     public static BigDecimal toBigDecimalOrDefault(String str, BigDecimal dflt) {
         return str == null ? dflt : NumberUtils.toScaledBigDecimal(str);
     }
@@ -43,11 +78,35 @@ public class StringNumberUtils {
     }
 
     public static Integer toIntegerOrDefault(String str, Integer dflt) {
-        return StringUtils.isNumeric(str) ? Integer.valueOf(str) : dflt;
+        return str == null ? dflt : Integer.valueOf(str);
     }
 
     public static Integer toIntegerOrNull(String str) {
         return toIntegerOrDefault(str, null);
+    }
+
+    public static Long toLongOrDefault(String str, Long dflt) {
+        return str == null ? dflt : Long.valueOf(str);
+    }
+
+    public static Long toLongOrNull(String str) {
+        return toLongOrDefault(str, null);
+    }
+
+    public static Double toDoubleOrDefault(String str, Double dflt) {
+        return str == null ? dflt : Double.valueOf(str);
+    }
+
+    public static Double toDoubleOrNull(String str) {
+        return toDoubleOrDefault(str, null);
+    }
+
+    public static Float toFloatOrDefault(String str, Float dflt) {
+        return str == null ? dflt : Float.valueOf(str);
+    }
+
+    public static Float toFloatOrNull(String str) {
+        return toFloatOrDefault(str, null);
     }
 
 }

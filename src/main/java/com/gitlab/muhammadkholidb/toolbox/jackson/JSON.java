@@ -30,7 +30,7 @@ public class JSON {
         try {
             return MAPPER.readValue(json, t);
         } catch (IOException e) {
-            log.warn("Unable to parse JSON");
+            log.debug("Unable to parse JSON: {}", e.toString());
             return null;
         }
     }
@@ -42,7 +42,7 @@ public class JSON {
         try {
             return MAPPER.readValue(json, t);
         } catch (IOException e) {
-            log.warn("Unable to parse JSON");
+            log.debug("Unable to parse JSON: {}", e.toString());
             return null;
         }
     }
@@ -78,7 +78,7 @@ public class JSON {
             }
             return str;
         } catch (JsonProcessingException e) {
-            log.warn("Unable to write object as JSON string");
+            log.debug("Unable to write object as JSON string: {}", e.toString());
         }
         return null;
     }
@@ -88,7 +88,7 @@ public class JSON {
             MAPPER.readTree(json);
             return true;
         } catch (IOException e) {
-            log.warn("Not a valid JSON");
+            log.debug("Not a valid JSON: {}", e.toString());
             return false;
         }
     }

@@ -3,8 +3,6 @@ package com.gitlab.muhammadkholidb.toolbox.jackson;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -61,12 +59,7 @@ public class ObjectConverter {
      *         <code>convertOptionalOrThrow()</code>.
      */
     public <T> T convertOptional(Optional<?> optional, final Class<T> c) {
-        return optional.map(new Function<Object, T>() {
-            @Override
-            public T apply(Object object) {
-                return convertObject(object, c);
-            }
-        }).orElse(null);
+        return optional.map(object -> convertObject(object, c)).orElse(null);
     }
 
     /**
@@ -84,17 +77,7 @@ public class ObjectConverter {
      */
     public <T, X extends Exception> T convertOptionalOrThrow(Optional<?> optional, final Class<T> c, final X x)
             throws X {
-        return optional.map(new Function<Object, T>() {
-            @Override
-            public T apply(Object object) {
-                return convertObject(object, c);
-            }
-        }).orElseThrow(new Supplier<X>() {
-            @Override
-            public X get() {
-                return x;
-            }
-        });
+        return optional.map(object -> convertObject(object, c)).orElseThrow(() -> x);
     }
 
     /**

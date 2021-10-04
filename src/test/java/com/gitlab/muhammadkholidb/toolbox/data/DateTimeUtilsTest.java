@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.equalTo;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.time.OffsetTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -61,75 +60,47 @@ public class DateTimeUtilsTest {
     }
 
     @Test
-    void testToInstant_withString() {
+    void testParseInstantWithDefaultFormatters() {
         // date: 2020-02-22, time: 20:22:02 (+11:00 Australia/Sydney)
         // date: 2020-02-22, time: 09:22:02 (UTC)
         String datetime = zdtBase.format(DateTimeFormatter.ISO_ZONED_DATE_TIME);
         log.info("Formatted: {}", datetime);
-        Instant result = DateTimeUtils.toInstant(datetime);
+        Instant result = DateTimeUtils.parseInstantWithDefaultFormatters(datetime);
         assertInstant(result, 2020, 2, 22, 9, 22, 2);
 
         // date: 2020-02-22, time: 20:22:02 (+11:00 Australia/Sydney)
         // date: 2020-02-22, time: 09:22:02 (UTC)
         datetime = zdtBase.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         log.info("Formatted: {}", datetime);
-        result = DateTimeUtils.toInstant(datetime);
+        result = DateTimeUtils.parseInstantWithDefaultFormatters(datetime);
         assertInstant(result, 2020, 2, 22, 9, 22, 2);
 
         // date: 2020-02-22, time: 20:22:02 (+02:00 Africa/Cairo)
         // date: 2020-02-22, time: 18:22:02 UTC
         datetime = zdtBase.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         log.info("Formatted: {}", datetime);
-        result = DateTimeUtils.toInstant(datetime);
+        result = DateTimeUtils.parseInstantWithDefaultFormatters(datetime);
         assertInstant(result, 2020, 2, 22, 18, 22, 2);
-
-        // date: 2020-02-22, time: 20:22:02 (+11:00 Australia/Sydney)
-        // date: 2020-02-21, time: 13:22:02 UTC
-        datetime = zdtBase.format(DateTimeFormatter.RFC_1123_DATE_TIME);
-        log.info("Formatted: {}", datetime);
-        result = DateTimeUtils.toInstant(datetime);
-        assertInstant(result, 2020, 2, 22, 9, 22, 2);
 
         // date: 2020-02-22, time: 00:00:00 (+02:00 Africa/Cairo)
         // date: 2020-02-21, time: 22:00:00 UTC
         datetime = zdtBase.format(DateTimeFormatter.ISO_LOCAL_DATE);
         log.info("Formatted: {}", datetime);
-        result = DateTimeUtils.toInstant(datetime);
+        result = DateTimeUtils.parseInstantWithDefaultFormatters(datetime);
         assertInstant(result, 2020, 2, 21, 22, 0, 0);
 
         // date: 2020-02-22, time: 00:00:00 (+11:00 Australia/Sydney)
         // date: 2020-02-21, time: 13:00:00 UTC
         datetime = zdtBase.format(DateTimeFormatter.ISO_OFFSET_DATE);
         log.info("Formatted: {}", datetime);
-        result = DateTimeUtils.toInstant(datetime);
-        assertInstant(result, 2020, 2, 21, 13, 0, 0);
-
-        // date: 2020-02-22, time: 00:00:00 (+11:00 Australia/Sydney)
-        // date: 2020-02-21, time: 13:00:00 UTC
-        datetime = zdtBase.format(DateTimeFormatter.BASIC_ISO_DATE);
-        log.info("Formatted: {}", datetime);
-        result = DateTimeUtils.toInstant(datetime);
-        assertInstant(result, 2020, 2, 21, 13, 0, 0);
-
-        // date: 2020-02-22, time: 00:00:00 (+11:00 Australia/Sydney)
-        // date: 2020-02-21, time: 13:00:00 UTC
-        datetime = zdtBase.format(DateTimeFormatter.ISO_ORDINAL_DATE);
-        log.info("Formatted: {}", datetime);
-        result = DateTimeUtils.toInstant(datetime);
-        assertInstant(result, 2020, 2, 21, 13, 0, 0);
-
-        // date: 2020-02-22, time: 00:00:00 (+11:00 Australia/Sydney)
-        // date: 2020-02-21, time: 13:00:00 UTC
-        datetime = zdtBase.format(DateTimeFormatter.ISO_WEEK_DATE);
-        log.info("Formatted: {}", datetime);
-        result = DateTimeUtils.toInstant(datetime);
+        result = DateTimeUtils.parseInstantWithDefaultFormatters(datetime);
         assertInstant(result, 2020, 2, 21, 13, 0, 0);
 
         // date: 2020-02-22, time: 20:22:02 (+11:00 Australia/Sydney)
         // date: 2020-02-22, time: 20:22:02 UTC
         datetime = zdtBase.format(DateTimeFormatter.ISO_INSTANT);
         log.info("Formatted: {}", datetime);
-        result = DateTimeUtils.toInstant(datetime);
+        result = DateTimeUtils.parseInstantWithDefaultFormatters(datetime);
         assertInstant(result, 2020, 2, 22, 9, 22, 2);
 
         LocalDate today = LocalDate.now();
@@ -138,14 +109,14 @@ public class DateTimeUtilsTest {
         // date: 2021-02-22, time: 18:22:02 UTC
         datetime = zdtBase.format(DateTimeFormatter.ISO_LOCAL_TIME);
         log.info("Formatted: {}", datetime);
-        result = DateTimeUtils.toInstant(datetime);
+        result = DateTimeUtils.parseInstantWithDefaultFormatters(datetime);
         assertInstant(result, today.getYear(), today.getMonthValue(), today.getDayOfMonth(), 18, 22, 2);
 
         // date: 2020-02-22, time: 20:22:02 (+11:00 Australia/Sydney)
         // date: 2021-02-22, time: 09:22:02 UTC
         datetime = zdtBase.format(DateTimeFormatter.ISO_OFFSET_TIME);
         log.info("Formatted: {}", datetime);
-        result = DateTimeUtils.toInstant(datetime);
+        result = DateTimeUtils.parseInstantWithDefaultFormatters(datetime);
         assertInstant(result, today.getYear(), today.getMonthValue(), today.getDayOfMonth(), 9, 22, 2);
     }
 
@@ -161,14 +132,6 @@ public class DateTimeUtilsTest {
         OffsetDateTime odt = OffsetDateTime.of(2020, 2, 22, 20, 22, 2, 0, ZoneOffset.ofHours(3));
         Instant result = DateTimeUtils.toInstant(odt);
         assertInstant(result, 2020, 2, 22, 17, 22, 2);
-    }
-
-    @Test
-    void testToInstant_withOffsetTime() {
-        OffsetTime ot = OffsetTime.of(20, 22, 2, 0, ZoneOffset.UTC);
-        Instant result = DateTimeUtils.toInstant(ot);
-        LocalDate today = LocalDate.now();
-        assertInstant(result, today.getYear(), today.getMonthValue(), today.getDayOfMonth(), 20, 22, 2);
     }
 
     private void assertInstant(Instant instant, int year, int month, int date, int hour, int minute, int second) {
