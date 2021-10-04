@@ -275,7 +275,10 @@ public class DateTimeUtils {
                 log.trace("Unable to parse datetime to Instant: \"{}\"", e.getMessage());
             }
         }
-        throw new DateTimeParseException(String.format("Unable to parse datetime to Instant: \"%s\"", datetime), datetime, datetime.length());
+        throw new DateTimeParseException(
+                String.format("Unable to parse datetime to Instant: \"%s\"", datetime),
+                datetime,
+                datetime.length());
     }
 
     public static ZonedDateTime parseZonedDateTimeWithDefaultFormatters(String datetime) {
@@ -312,7 +315,10 @@ public class DateTimeUtils {
                 log.trace("Unable to parse datetime to ZonedDateTime: \"{}\"", e.getMessage());
             }
         }
-        throw new DateTimeParseException(String.format("Unable to parse datetime to ZonedDateTime: \"%s\"", datetime), datetime, datetime.length());
+        throw new DateTimeParseException(
+                String.format("Unable to parse datetime to ZonedDateTime: \"%s\"", datetime),
+                datetime,
+                datetime.length());
     }
 
     public static OffsetDateTime parseOffsetDateTimeWithDefaultFormatters(String datetime) {
@@ -349,7 +355,10 @@ public class DateTimeUtils {
                 log.trace("Unable to parse datetime to OffsetDateTime: \"{}\"", e.getMessage());
             }
         }
-        throw new DateTimeParseException(String.format("Unable to parse datetime to OffsetDateTime: \"%s\"", datetime), datetime, datetime.length());
+        throw new DateTimeParseException(
+                String.format("Unable to parse datetime to OffsetDateTime: \"%s\"", datetime),
+                datetime,
+                datetime.length());
     }
 
 }
