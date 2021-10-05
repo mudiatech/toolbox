@@ -77,12 +77,20 @@ public class StringNumberUtils {
         return toBigDecimalOrDefault(str, null);
     }
 
+    public static BigDecimal toBigDecimalOrZero(String str) {
+        return toBigDecimalOrDefault(str, BigDecimal.ZERO);
+    }
+
     public static Integer toIntegerOrDefault(String str, Integer dflt) {
         return str == null ? dflt : Integer.valueOf(str);
     }
 
     public static Integer toIntegerOrNull(String str) {
         return toIntegerOrDefault(str, null);
+    }
+
+    public static Integer toIntegerOrZero(String str) {
+        return toIntegerOrDefault(str, 0);
     }
 
     public static Long toLongOrDefault(String str, Long dflt) {
@@ -93,6 +101,10 @@ public class StringNumberUtils {
         return toLongOrDefault(str, null);
     }
 
+    public static Long toLongOrZero(String str) {
+        return toLongOrDefault(str, 0l);
+    }
+
     public static Double toDoubleOrDefault(String str, Double dflt) {
         return str == null ? dflt : Double.valueOf(str);
     }
@@ -101,12 +113,20 @@ public class StringNumberUtils {
         return toDoubleOrDefault(str, null);
     }
 
+    public static Double toDoubleOrZero(String str) {
+        return toDoubleOrDefault(str, 0d);
+    }
+
     public static Float toFloatOrDefault(String str, Float dflt) {
         return str == null ? dflt : Float.valueOf(str);
     }
 
     public static Float toFloatOrNull(String str) {
         return toFloatOrDefault(str, null);
+    }
+
+    public static Float toFloatOrZero(String str) {
+        return toFloatOrDefault(str, 0f);
     }
 
 }

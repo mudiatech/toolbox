@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -143,9 +144,13 @@ public class DateTimeUtils {
         return calendar.getTimeZone().toZoneId();
     }
 
+    public static DateTimeFormatter[] toFormatter(String... patterns) {
+        return Arrays.stream(patterns).map(DateTimeFormatter::ofPattern).toArray(DateTimeFormatter[]::new);
+    }
+
     public static Instant parseInstantQuietly(String datetime, DateTimeFormatter... formatters) {
         if (ArrayUtils.isEmpty(formatters)) {
-            return parseInstantQuietly(datetime, DateTimeFormatter.ISO_INSTANT);
+            return Instant.parse(datetime);
         }
         for (DateTimeFormatter formatter : formatters) {
             try {
@@ -157,9 +162,13 @@ public class DateTimeUtils {
         return null;
     }
 
+    public static Instant parseInstantQuietly(String datetime, String... patterns) {
+        return parseInstantQuietly(datetime, toFormatter(patterns));
+    }
+
     public static ZonedDateTime parseZonedDateTimeQuietly(String datetime, DateTimeFormatter... formatters) {
         if (ArrayUtils.isEmpty(formatters)) {
-            return parseZonedDateTimeQuietly(datetime, DateTimeFormatter.ISO_ZONED_DATE_TIME);
+            return ZonedDateTime.parse(datetime);
         }
         for (DateTimeFormatter formatter : formatters) {
             try {
@@ -171,9 +180,13 @@ public class DateTimeUtils {
         return null;
     }
 
+    public static ZonedDateTime parseZonedDateTimeQuietly(String datetime, String... patterns) {
+        return parseZonedDateTimeQuietly(datetime, toFormatter(patterns));
+    }
+
     public static OffsetDateTime parseOffsetDateTimeQuietly(String datetime, DateTimeFormatter... formatters) {
         if (ArrayUtils.isEmpty(formatters)) {
-            return parseOffsetDateTimeQuietly(datetime, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+            return OffsetDateTime.parse(datetime);
         }
         for (DateTimeFormatter formatter : formatters) {
             try {
@@ -185,9 +198,13 @@ public class DateTimeUtils {
         return null;
     }
 
+    public static OffsetDateTime parseOffsetDateTimeQuietly(String datetime, String... patterns) {
+        return parseOffsetDateTimeQuietly(datetime, toFormatter(patterns));
+    }
+
     public static OffsetTime parseOffsetTimeQuietly(String time, DateTimeFormatter... formatters) {
         if (ArrayUtils.isEmpty(formatters)) {
-            return parseOffsetTimeQuietly(time, DateTimeFormatter.ISO_OFFSET_TIME);
+            return OffsetTime.parse(time);
         }
         for (DateTimeFormatter formatter : formatters) {
             try {
@@ -199,9 +216,13 @@ public class DateTimeUtils {
         return null;
     }
 
+    public static OffsetTime parseOffsetTimeQuietly(String datetime, String... patterns) {
+        return parseOffsetTimeQuietly(datetime, toFormatter(patterns));
+    }
+
     public static LocalDateTime parseLocalDateTimeQuietly(String datetime, DateTimeFormatter... formatters) {
         if (ArrayUtils.isEmpty(formatters)) {
-            return parseLocalDateTimeQuietly(datetime, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            return LocalDateTime.parse(datetime);
         }
         for (DateTimeFormatter formatter : formatters) {
             try {
@@ -213,9 +234,13 @@ public class DateTimeUtils {
         return null;
     }
 
+    public static LocalDateTime parseLocalDateTimeQuietly(String datetime, String... patterns) {
+        return parseLocalDateTimeQuietly(datetime, toFormatter(patterns));
+    }
+
     public static LocalDate parseLocalDateQuietly(String date, DateTimeFormatter... formatters) {
         if (ArrayUtils.isEmpty(formatters)) {
-            return parseLocalDateQuietly(date, DateTimeFormatter.ISO_LOCAL_DATE);
+            return LocalDate.parse(date);
         }
         for (DateTimeFormatter formatter : formatters) {
             try {
@@ -227,9 +252,13 @@ public class DateTimeUtils {
         return null;
     }
 
+    public static LocalDate parseLocalDateQuietly(String datetime, String... patterns) {
+        return parseLocalDateQuietly(datetime, toFormatter(patterns));
+    }
+
     public static LocalTime parseLocalTimeQuietly(String time, DateTimeFormatter... formatters) {
         if (ArrayUtils.isEmpty(formatters)) {
-            return parseLocalTimeQuietly(time, DateTimeFormatter.ISO_LOCAL_TIME);
+            return LocalTime.parse(time);
         }
         for (DateTimeFormatter formatter : formatters) {
             try {
@@ -239,6 +268,10 @@ public class DateTimeUtils {
             }
         }
         return null;
+    }
+
+    public static LocalTime parseLocalTimeQuietly(String datetime, String... patterns) {
+        return parseLocalTimeQuietly(datetime, toFormatter(patterns));
     }
 
     public static Instant parseInstantWithDefaultFormatters(String datetime) {
