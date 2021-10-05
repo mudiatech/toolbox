@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.equalTo;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.time.OffsetTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -132,6 +133,14 @@ public class DateTimeUtilsTest {
         OffsetDateTime odt = OffsetDateTime.of(2020, 2, 22, 20, 22, 2, 0, ZoneOffset.ofHours(3));
         Instant result = DateTimeUtils.toInstant(odt);
         assertInstant(result, 2020, 2, 22, 17, 22, 2);
+    }
+
+    @Test
+    void testToInstant_withOffsetTime() {
+        OffsetTime ot = OffsetTime.of(20, 22, 2, 0, ZoneOffset.UTC);
+        Instant result = DateTimeUtils.toInstant(ot);
+        LocalDate today = LocalDate.now();
+        assertInstant(result, today.getYear(), today.getMonthValue(), today.getDayOfMonth(), 20, 22, 2);
     }
 
     private void assertInstant(Instant instant, int year, int month, int date, int hour, int minute, int second) {
