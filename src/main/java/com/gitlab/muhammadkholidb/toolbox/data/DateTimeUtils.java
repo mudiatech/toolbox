@@ -42,6 +42,10 @@ public class DateTimeUtils {
         return odt.toInstant();
     }
 
+    public static Instant toInstant(OffsetTime ot) {
+        return toInstant(ot.atDate(LocalDate.now()));
+    }
+
     public static Instant toInstant(LocalDateTime ldt, ZoneOffset zo) {
         return toInstant(ldt.atOffset(zo));
     }
@@ -52,6 +56,10 @@ public class DateTimeUtils {
 
     public static Instant toInstant(LocalDateTime ldt) {
         return toInstant(ldt.atZone(ZoneId.systemDefault()));
+    }
+
+    public static Instant toInstant(LocalDate ld) {
+        return toInstant(ld.atStartOfDay(ZoneId.systemDefault()));
     }
 
     public static Instant toInstant(LocalDate ld, LocalTime lt) {
@@ -68,6 +76,10 @@ public class DateTimeUtils {
 
     public static Instant toInstant(LocalDate ld, LocalTime lt, ZoneId zoneId) {
         return toInstant(ld.atTime(lt), zoneId);
+    }
+
+    public static Instant toInstant(LocalTime lt, ZoneOffset zo) {
+        return toInstant(lt.atDate(LocalDate.now()), zo);
     }
 
     public static ZonedDateTime toZonedDateTime(Instant instant, ZoneId zoneId) {
