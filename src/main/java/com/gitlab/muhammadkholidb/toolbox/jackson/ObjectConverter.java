@@ -1,5 +1,8 @@
 package com.gitlab.muhammadkholidb.toolbox.jackson;
 
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -7,6 +10,11 @@ import java.util.Optional;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.gitlab.muhammadkholidb.toolbox.jackson.deserializer.MultipleFormatInstantDeserializer;
+import com.gitlab.muhammadkholidb.toolbox.jackson.deserializer.MultipleFormatOffsetDateTimeDeserializer;
+import com.gitlab.muhammadkholidb.toolbox.jackson.deserializer.MultipleFormatZonedDateTimeDeserializer;
 
 import lombok.Data;
 
@@ -20,9 +28,16 @@ public class ObjectConverter {
      * configuration.
      */
     public ObjectConverter() {
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(Instant.class, new MultipleFormatInstantDeserializer());
+        module.addDeserializer(ZonedDateTime.class, new MultipleFormatZonedDateTimeDeserializer());
+        module.addDeserializer(OffsetDateTime.class, new MultipleFormatOffsetDateTimeDeserializer());
         this.mapper = new ObjectMapper();
+        this.mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        this.mapper.configure(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS, false);
         this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         this.mapper.findAndRegisterModules();
+        this.mapper.registerModule(module);
     }
 
     /**
