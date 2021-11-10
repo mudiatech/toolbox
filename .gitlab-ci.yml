@@ -61,7 +61,7 @@ release-start:
   dependencies:
     - test
   script:
-    - ./mvnw $MAVEN_CLI_OPTS gitflow:release-start
+    - ./mvnw $MAVEN_CLI_OPTS gitflow:release-start -DkeepBranch=true -DpushRemote=true
   only:
     - develop
   when: manual
@@ -71,6 +71,6 @@ release-finish:
   dependencies:
     - release-start
   script:
-    - ./mvnw $MAVEN_CLI_OPTS gitflow:release-finish -DkeepBranch=true
+    - ./mvnw $MAVEN_CLI_OPTS gitflow:release-finish -DkeepBranch=true -DpushRemote=true
   only:
     - /^release\/.*$/
