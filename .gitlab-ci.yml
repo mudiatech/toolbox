@@ -1,18 +1,10 @@
-# References:
-# https://gitlab.com/gitlab-org/gitlab-ci-yml/blob/master/Maven.gitlab-ci.yml
-# https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
-
-image: maven:3.6.1-jdk-8-alpine
+image: adoptopenjdk/openjdk8-openj9:alpine-slim
 
 variables:
-  MAVEN_CLI_OPTS: "--show-version \
-    --batch-mode \
+  MAVEN_CLI_OPTS: "--show-version --batch-mode \
+    -Dmaven.repo.local=.m2/repository \
     -Duser.timezone=Asia/Jakarta \
-    -Dhttps.protocols=TLSv1.2 \
-    -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository \
-    -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN \
-    -Dorg.slf4j.simpleLogger.showDateTime=true \
-    -Djava.awt.headless=true"
+    -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn"
 
 cache:
   paths:
@@ -33,7 +25,7 @@ stages:
 
 build:
   stage: build
-  script: mvn $MAVEN_CLI_OPTS spotless:check test-compile
+  script: ./mvnw $MAVEN_CLI_OPTS spotless:check test-compile
   allow_failure: false
   only:
     - develop
@@ -45,7 +37,7 @@ test:
   dependencies:
     - build
   script:
-    - mvn $MAVEN_CLI_OPTS verify
+    - ./mvnw $MAVEN_CLI_OPTS verify
     - if [ -f $JACOCO_REPORT_HTML ]; then cat $JACOCO_REPORT_HTML | grep -o "Total[^%]*%"; fi
   allow_failure: false
   coverage: "/Total.*?([0-9]{1,3})%/"
@@ -56,21 +48,12 @@ test:
   only:
     - develop
 
-release-start:
+release:
   stage: release
   dependencies:
     - test
   script:
-    - ./mvnw $MAVEN_CLI_OPTS gitflow:release-start -DkeepBranch=true -DpushRemote=true
+    - ./mvnw $MAVEN_CLI_OPTS gitflow:release
   only:
     - develop
   when: manual
-
-release-finish:
-  stage: release
-  dependencies:
-    - release-start
-  script:
-    - ./mvnw $MAVEN_CLI_OPTS gitflow:release-finish -DkeepBranch=true -DpushRemote=true
-  only:
-    - /^release\/.*$/
