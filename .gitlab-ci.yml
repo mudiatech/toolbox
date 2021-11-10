@@ -35,11 +35,15 @@ build:
   stage: build
   script: mvn $MAVEN_CLI_OPTS spotless:check test-compile
   allow_failure: false
+  only:
+    - develop
 
 test:
   variables:
     JACOCO_REPORT_HTML: $CI_PROJECT_DIR/target/site/jacoco/index.html
   stage: test
+  dependencies:
+    - build
   script:
     - mvn $MAVEN_CLI_OPTS verify
     - if [ -f $JACOCO_REPORT_HTML ]; then cat $JACOCO_REPORT_HTML | grep -o "Total[^%]*%"; fi
@@ -49,21 +53,24 @@ test:
     reports:
       junit:
         - target/surefire-reports/TEST-*.xml
+  only:
+    - develop
 
-prepare-release:
+release-start:
   stage: release
   dependencies:
     - test
   script:
     - ./mvnw $MAVEN_CLI_OPTS gitflow:release-start -DkeepBranch=true -DpushRemote=true
   only:
-    - master
+    - develop
+  when: manual
 
-release:
+release-finish:
   stage: release
   dependencies:
-    - prepare-release
+    - release-start
   script:
-    - ./mvnw $MAVEN_CLI_OPTS gitflow:release-finish
+    - ./mvnw $MAVEN_CLI_OPTS gitflow:release-finish -DkeepBranch=true -DpushRemote=true
   only:
     - /^release\/.*$/
