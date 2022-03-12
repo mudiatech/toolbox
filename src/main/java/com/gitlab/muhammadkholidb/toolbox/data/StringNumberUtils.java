@@ -1,6 +1,9 @@
 package com.gitlab.muhammadkholidb.toolbox.data;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -128,6 +131,31 @@ public class StringNumberUtils {
 
     public static Float toFloatOrZero(String str) {
         return toFloatOrDefault(str, 0f);
+    }
+
+    public static String format(Number num) {
+        DecimalFormat df = new DecimalFormat();
+        return df.format(num);
+    }
+
+    public static String formatOrDefault(Number num, String dflt) {
+        if (num == null) {
+            return dflt;
+        }
+        return format(num);
+    }
+
+    public static String format(Number num, Locale locale) {
+        DecimalFormat df = new DecimalFormat();
+        df.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(locale));
+        return df.format(num);
+    }
+
+    public static String formatOrDefault(Number num, Locale locale, String dflt) {
+        if (num == null) {
+            return dflt;
+        }
+        return format(num, locale);
     }
 
 }
