@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class JSON {
+public final class JSON {
 
     private static final ObjectMapper MAPPER;
 
@@ -30,7 +30,9 @@ public class JSON {
         try {
             return MAPPER.readValue(json, t);
         } catch (IOException e) {
-            log.debug("Unable to parse JSON: {}", e.toString());
+            if (log.isDebugEnabled()) {
+                log.debug("Unable to parse JSON: {}", e.toString());
+            }
             return null;
         }
     }
@@ -42,7 +44,9 @@ public class JSON {
         try {
             return MAPPER.readValue(json, t);
         } catch (IOException e) {
-            log.debug("Unable to parse JSON: {}", e.toString());
+            if (log.isDebugEnabled()) {
+                log.debug("Unable to parse JSON: {}", e.toString());
+            }
             return null;
         }
     }
@@ -78,7 +82,9 @@ public class JSON {
             }
             return str;
         } catch (JsonProcessingException e) {
-            log.debug("Unable to write object as JSON string: {}", e.toString());
+            if (log.isDebugEnabled()) {
+                log.debug("Unable to write object as JSON string: {}", e.toString());
+            }
         }
         return null;
     }
@@ -88,7 +94,9 @@ public class JSON {
             MAPPER.readTree(json);
             return true;
         } catch (IOException e) {
-            log.debug("Not a valid JSON: {}", e.toString());
+            if (log.isDebugEnabled()) {
+                log.debug("Not a valid JSON: {}", e.toString());
+            }
             return false;
         }
     }

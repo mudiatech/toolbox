@@ -3,7 +3,7 @@ package com.gitlab.muhammadkholidb.toolbox.data;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class SingletonStack {
+public final class SingletonStack {
 
     Deque<Object> stack = new ArrayDeque<>();
 

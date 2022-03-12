@@ -112,9 +112,22 @@
                     <java>
                         <removeUnusedImports />
                         <eclipse>
-                            <file>${basedir}/formatter.xml</file>
+                            <file>${basedir}/default-formatter.xml</file>
                         </eclipse>
                     </java>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.16.0</version>
+                <configuration>
+                    <rulesets>
+                        <ruleset>default-ruleset.xml</ruleset>
+                    </rulesets>
+                    <printFailingErrors>true</printFailingErrors>
+                    <linkXRef>false</linkXRef>
+                    <failurePriority>2</failurePriority>
                 </configuration>
             </plugin>
             <plugin>

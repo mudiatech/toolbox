@@ -21,7 +21,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class DateTimeUtils {
+public final class DateTimeUtils {
 
     public static final DateTimeFormatter[] DEFAULT_FORMATTERS = new DateTimeFormatter[] {
             DateTimeFormatter.ISO_INSTANT,
@@ -325,7 +325,9 @@ public class DateTimeUtils {
                     return toInstant(ld, lt);
                 }
             } catch (DateTimeParseException e) {
-                log.trace("Unable to parse datetime to Instant: \"{}\"", e.getMessage());
+                if (log.isTraceEnabled()) {
+                    log.trace("Unable to parse datetime to Instant: \"{}\"", e.getMessage());
+                }
             }
         }
         throw new DateTimeParseException(
@@ -365,7 +367,9 @@ public class DateTimeUtils {
                     return toZonedDateTime(ld, lt);
                 }
             } catch (DateTimeParseException e) {
-                log.trace("Unable to parse datetime to ZonedDateTime: \"{}\"", e.getMessage());
+                if (log.isTraceEnabled()) {
+                    log.trace("Unable to parse datetime to ZonedDateTime: \"{}\"", e.getMessage());
+                }
             }
         }
         throw new DateTimeParseException(
@@ -405,7 +409,9 @@ public class DateTimeUtils {
                     return toOffsetDateTime(ld, lt);
                 }
             } catch (DateTimeParseException e) {
-                log.trace("Unable to parse datetime to OffsetDateTime: \"{}\"", e.getMessage());
+                if (log.isTraceEnabled()) {
+                    log.trace("Unable to parse datetime to OffsetDateTime: \"{}\"", e.getMessage());
+                }
             }
         }
         throw new DateTimeParseException(
