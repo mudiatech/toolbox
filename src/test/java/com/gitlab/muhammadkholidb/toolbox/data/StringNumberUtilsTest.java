@@ -71,12 +71,24 @@ public class StringNumberUtilsTest {
         assertThat(result, equalTo(2));
         result = StringNumberUtils.toIntegerOrDefault(null, 0);
         assertThat(result, equalTo(0));
+        result = StringNumberUtils.toIntegerOrDefault("2.37894", 0);
+        assertThat(result, equalTo(2));
     }
 
     @Test
     void testToIntegerOrNull() {
         Integer result = StringNumberUtils.toIntegerOrNull(null);
         assertThat(result, nullValue());
+    }
+
+    @Test
+    void testToDoubleOrDefault() {
+        Double result = StringNumberUtils.toDoubleOrDefault("2", 0d);
+        assertThat(result, equalTo(2d));
+        result = StringNumberUtils.toDoubleOrDefault(null, 10d);
+        assertThat(result, equalTo(10d));
+        result = StringNumberUtils.toDoubleOrDefault("2.37894", 10d);
+        assertThat(result, equalTo(2.37894));
     }
 
 }

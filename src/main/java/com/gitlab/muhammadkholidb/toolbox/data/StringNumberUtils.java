@@ -86,7 +86,7 @@ public final class StringNumberUtils {
     }
 
     public static Integer toIntegerOrDefault(String str, Integer dflt) {
-        return StringUtils.isBlank(str) ? dflt : Integer.valueOf(str);
+        return StringUtils.isBlank(str) ? dflt : (Integer) Double.valueOf(NumberUtils.toDouble(str)).intValue();
     }
 
     public static Integer toIntegerOrNull(String str) {
@@ -98,7 +98,7 @@ public final class StringNumberUtils {
     }
 
     public static Long toLongOrDefault(String str, Long dflt) {
-        return StringUtils.isBlank(str) ? dflt : Long.valueOf(str);
+        return StringUtils.isBlank(str) ? dflt : (Long) Double.valueOf(NumberUtils.toDouble(str)).longValue();
     }
 
     public static Long toLongOrNull(String str) {
