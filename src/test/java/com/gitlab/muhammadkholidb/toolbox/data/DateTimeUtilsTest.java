@@ -42,7 +42,7 @@ public class DateTimeUtilsTest {
     void testParseZoneOffset() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("America/Toronto"));
         ZoneOffset result = DateTimeUtils.parseZoneOffset(cal);
-        assertThat(result.getId(), equalTo("-05:00"));
+        assertThat(result.getId(), equalTo("-04:00"));
 
         cal = Calendar.getInstance();
         result = DateTimeUtils.parseZoneOffset(cal);

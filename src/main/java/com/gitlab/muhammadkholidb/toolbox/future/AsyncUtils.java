@@ -8,21 +8,25 @@ import com.gitlab.muhammadkholidb.toolbox.exception.Exceptions;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class AsyncUtils {
+public final class AsyncUtils {
 
     private AsyncUtils() {
     }
 
     public static <T> CompletableFuture<T> supply(Supplier<T> supplier) {
         return CompletableFuture.supplyAsync(supplier).exceptionally(ex -> {
-            log.error("Supply async error: " + Exceptions.getMessage(ex.getCause()), ex);
+            if (log.isErrorEnabled()) {
+                log.error("Supply async error: " + Exceptions.getMessage(ex.getCause()), ex);
+            }
             return null;
         });
     }
 
     public static CompletableFuture<Void> run(Runnable runnable) {
         return CompletableFuture.runAsync(runnable).exceptionally(ex -> {
-            log.error("Run async error: " + Exceptions.getMessage(ex.getCause()), ex);
+            if (log.isErrorEnabled()) {
+                log.error("Run async error: " + Exceptions.getMessage(ex.getCause()), ex);
+            }
             return null;
         });
     }

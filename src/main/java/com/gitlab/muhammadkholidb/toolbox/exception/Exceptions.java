@@ -1,6 +1,6 @@
 package com.gitlab.muhammadkholidb.toolbox.exception;
 
-public class Exceptions {
+public final class Exceptions {
 
     private Exceptions() {
     }
