@@ -1,10 +1,14 @@
 package com.gitlab.muhammadkholidb.toolbox.data;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
-public class StringNumberUtils {
+public final class StringNumberUtils {
 
     private StringNumberUtils() {
     }
@@ -70,7 +74,7 @@ public class StringNumberUtils {
     }
 
     public static BigDecimal toBigDecimalOrDefault(String str, BigDecimal dflt) {
-        return str == null ? dflt : NumberUtils.toScaledBigDecimal(str);
+        return StringUtils.isBlank(str) ? dflt : NumberUtils.toScaledBigDecimal(str);
     }
 
     public static BigDecimal toBigDecimalOrNull(String str) {
@@ -82,7 +86,7 @@ public class StringNumberUtils {
     }
 
     public static Integer toIntegerOrDefault(String str, Integer dflt) {
-        return str == null ? dflt : Integer.valueOf(str);
+        return StringUtils.isBlank(str) ? dflt : (Integer) Double.valueOf(NumberUtils.toDouble(str)).intValue();
     }
 
     public static Integer toIntegerOrNull(String str) {
@@ -94,7 +98,7 @@ public class StringNumberUtils {
     }
 
     public static Long toLongOrDefault(String str, Long dflt) {
-        return str == null ? dflt : Long.valueOf(str);
+        return StringUtils.isBlank(str) ? dflt : (Long) Double.valueOf(NumberUtils.toDouble(str)).longValue();
     }
 
     public static Long toLongOrNull(String str) {
@@ -106,7 +110,7 @@ public class StringNumberUtils {
     }
 
     public static Double toDoubleOrDefault(String str, Double dflt) {
-        return str == null ? dflt : Double.valueOf(str);
+        return StringUtils.isBlank(str) ? dflt : Double.valueOf(str);
     }
 
     public static Double toDoubleOrNull(String str) {
@@ -118,7 +122,7 @@ public class StringNumberUtils {
     }
 
     public static Float toFloatOrDefault(String str, Float dflt) {
-        return str == null ? dflt : Float.valueOf(str);
+        return StringUtils.isBlank(str) ? dflt : Float.valueOf(str);
     }
 
     public static Float toFloatOrNull(String str) {
@@ -127,6 +131,31 @@ public class StringNumberUtils {
 
     public static Float toFloatOrZero(String str) {
         return toFloatOrDefault(str, 0f);
+    }
+
+    public static String format(Number num) {
+        DecimalFormat df = new DecimalFormat();
+        return df.format(num);
+    }
+
+    public static String formatOrDefault(Number num, String dflt) {
+        if (num == null) {
+            return dflt;
+        }
+        return format(num);
+    }
+
+    public static String format(Number num, Locale locale) {
+        DecimalFormat df = new DecimalFormat();
+        df.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(locale));
+        return df.format(num);
+    }
+
+    public static String formatOrDefault(Number num, Locale locale, String dflt) {
+        if (num == null) {
+            return dflt;
+        }
+        return format(num, locale);
     }
 
 }
