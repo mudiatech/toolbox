@@ -1,6 +1,6 @@
-<a href="https://gitlab.com/muhammadkholidb/toolbox/-/pipelines" target="_blank"><img alt="pipeline status" src="https://gitlab.com/muhammadkholidb/toolbox/badges/develop/pipeline.svg" /></a> 
-<a href="https://gitlab.com/muhammadkholidb/toolbox/-/jobs" target="_blank"><img alt="coverage report" src="https://gitlab.com/muhammadkholidb/toolbox/badges/develop/coverage.svg" /></a> 
-<a href="https://jitpack.io/#com.gitlab.muhammadkholidb/toolbox" target="_blank"><img alt="release" src="https://jitpack.io/v/com.gitlab.muhammadkholidb/toolbox.svg" /></a> 
+<a href="https://gitlab.com/stoready/toolbox/-/pipelines" target="_blank"><img alt="pipeline status" src="https://gitlab.com/stoready/toolbox/badges/develop/pipeline.svg" /></a> 
+<a href="https://gitlab.com/stoready/toolbox/-/jobs" target="_blank"><img alt="coverage report" src="https://gitlab.com/stoready/toolbox/badges/develop/coverage.svg" /></a> 
+<a href="https://jitpack.io/#com.gitlab.stoready/toolbox" target="_blank"><img alt="release" src="https://jitpack.io/v/com.gitlab.stoready/toolbox.svg" /></a> 
 
 # Toolbox
 
@@ -23,7 +23,7 @@ General-purpose utilities for Java projects
 
 ```xml
 <dependency>
-    <groupId>com.gitlab.muhammadkholidb</groupId>
+    <groupId>com.gitlab.stoready</groupId>
     <artifactId>toolbox</artifactId>
     <version>develop-SNAPSHOT</version>
 </dependency>
