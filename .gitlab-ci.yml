@@ -5,6 +5,8 @@ variables:
     -Dmaven.repo.local=.m2/repository \
     -Duser.timezone=Asia/Jakarta \
     -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn"
+  RELEASE_DIGIT: 1
+  HOTFIX_DIGIT: 2
 
 cache:
   paths:
@@ -61,7 +63,7 @@ release:
   dependencies:
     - test
   script:
-    - ./mvnw $MAVEN_CLI_OPTS gitflow:release
+    - ./mvnw $MAVEN_CLI_OPTS gitflow:release -DversionDigitToIncrement=$RELEASE_DIGIT -DargLine=$MAVEN_CLI_OPTS
   allow_failure: false
   only:
     - develop
@@ -75,3 +77,29 @@ deploy-jar-release:
   allow_failure: false
   only:
     - master
+
+hotfix-start:
+  stage: release
+  dependencies:
+    - release
+  script:
+    - ./mvnw $MAVEN_CLI_OPTS gitflow:hotfix-start -DhotfixVersionDigitToIncrement=$HOTFIX_DIGIT -DargLine=$MAVEN_CLI_OPTS
+    - git push origin HEAD
+  allow_failure: false
+  only:
+    - master
+  when: manual
+
+# Inspired from here: https://github.com/viesure/blog-gitflow-maven/blob/master/.gitlab-ci.yml
+hotfix-finish:
+  stage: release
+  dependencies:
+    - hotfix-start
+  script:
+    # Manually fix the git refs. gitflow plugin uses the heads ref, but we do not have it set up locally, however we have the remote ref
+    - git symbolic-ref refs/heads/$CI_COMMIT_BRANCH refs/remotes/origin/$CI_COMMIT_BRANCH
+    - ./mvnw $MAVEN_CLI_OPTS gitflow:hotfix-finish -DhotfixBranch=$CI_COMMIT_BRANCH -DargLine=$MAVEN_CLI_OPTS
+  allow_failure: false
+  only:
+    - /^hotfix\/.*$/
+  when: manual
