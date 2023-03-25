@@ -12,7 +12,7 @@ General-purpose utilities for Java projects
 ```xml
 <repositories>
     <repository>
-        <id>gitlab-maven</id>
+        <id>mudia</id>
         <url>https://gitlab.com/api/v4/groups/64413151/-/packages/maven</url>
     </repository>
 </repositories>
@@ -24,6 +24,6 @@ General-purpose utilities for Java projects
 <dependency>
     <groupId>com.gitlab.mudia.coop</groupId>
     <artifactId>toolbox</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
 </dependency>
 ```

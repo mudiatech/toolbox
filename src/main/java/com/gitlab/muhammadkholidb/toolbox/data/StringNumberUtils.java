@@ -158,4 +158,18 @@ public final class StringNumberUtils {
         return format(num, locale);
     }
 
+    public static String format(Number num, Locale locale, int fractionDigit) {
+        DecimalFormat df = new DecimalFormat();
+        df.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(locale));
+        df.setMaximumFractionDigits(fractionDigit);
+        return df.format(num);
+    }
+
+    public static String formatOrDefault(Number num, Locale locale, int fractionDigit, String dflt) {
+        if (num == null) {
+            return dflt;
+        }
+        return format(num, locale, fractionDigit);
+    }
+
 }
