@@ -1,5 +1,5 @@
-<a href="https://gitlab.com/mudia/pro/toolbox/-/pipelines" target="_blank"><img alt="pipeline status" src="https://gitlab.com/mudia/pro/toolbox/badges/develop/pipeline.svg" /></a> 
-<a href="https://gitlab.com/mudia/pro/toolbox/-/jobs" target="_blank"><img alt="coverage report" src="https://gitlab.com/mudia/pro/toolbox/badges/develop/coverage.svg" /></a> 
+<a href="https://gitlab.com/mudiasoft/mob/toolbox/-/pipelines" target="_blank"><img alt="pipeline status" src="https://gitlab.com/mudiasoft/mob/toolbox/badges/develop/pipeline.svg" /></a> 
+<a href="https://gitlab.com/mudiasoft/mob/toolbox/-/jobs" target="_blank"><img alt="coverage report" src="https://gitlab.com/mudiasoft/mob/toolbox/badges/develop/coverage.svg" /></a> 
 
 # Toolbox
 
@@ -12,7 +12,7 @@ General-purpose utilities for Java projects
 ```xml
 <repositories>
     <repository>
-        <id>mudia</id>
+        <id>mudiasoft</id>
         <url>https://gitlab.com/api/v4/groups/64413151/-/packages/maven</url>
     </repository>
 </repositories>
@@ -22,8 +22,8 @@ General-purpose utilities for Java projects
 
 ```xml
 <dependency>
-    <groupId>com.gitlab.mudia.pro</groupId>
+    <groupId>com.gitlab.mudiasoft.mob</groupId>
     <artifactId>toolbox</artifactId>
-    <version>0.3.0-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
 </dependency>
 ```
