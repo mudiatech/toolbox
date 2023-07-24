@@ -111,6 +111,7 @@ public class DateTimeUtilsTest {
         datetime = zdtBase.format(DateTimeFormatter.ISO_LOCAL_TIME);
         log.info("Formatted: {}", datetime);
         result = DateTimeUtils.parseInstantWithDefaultFormatters(datetime);
+        log.info("Result   : " + result);
         assertInstant(result, today.getYear(), today.getMonthValue(), today.getDayOfMonth(), 18, 22, 2);
 
         // date: 2020-02-22, time: 20:22:02 (+11:00 Australia/Sydney)
@@ -145,6 +146,7 @@ public class DateTimeUtilsTest {
 
     private void assertInstant(Instant instant, int year, int month, int date, int hour, int minute, int second) {
         ZonedDateTime zdt = instant.atZone(UTC);
+        log.info("Zdt      : " + zdt);
         assertThat(zdt.get(ChronoField.YEAR), equalTo(year));
         assertThat(zdt.get(ChronoField.MONTH_OF_YEAR), equalTo(month));
         assertThat(zdt.get(ChronoField.DAY_OF_MONTH), equalTo(date));

@@ -1,6 +1,7 @@
 package com.gitlab.mudiasoft.toolbox.data;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -14,7 +15,7 @@ public final class StringNumberUtils {
     }
 
     public static String toStringOrDefault(BigDecimal num, String dflt) {
-        return num == null ? dflt : num.setScale(0).toString();
+        return num == null ? dflt : num.setScale(0, RoundingMode.HALF_EVEN).toString();
     }
 
     public static String toStringOrNull(BigDecimal num) {
