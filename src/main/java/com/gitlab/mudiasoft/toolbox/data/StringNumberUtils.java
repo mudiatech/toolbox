@@ -15,7 +15,7 @@ public final class StringNumberUtils {
     }
 
     public static String toStringOrDefault(BigDecimal num, String dflt) {
-        return num == null ? dflt : num.setScale(0, RoundingMode.HALF_EVEN).toString();
+        return toStringOrDefault(num, 0, dflt);
     }
 
     public static String toStringOrNull(BigDecimal num) {
@@ -24,6 +24,18 @@ public final class StringNumberUtils {
 
     public static String toStringOrEmpty(BigDecimal num) {
         return toStringOrDefault(num, "");
+    }
+
+    public static String toStringOrDefault(BigDecimal num, int fractionDigit, String dflt) {
+        return num == null ? dflt : num.setScale(fractionDigit, RoundingMode.HALF_EVEN).toString();
+    }
+
+    public static String toStringOrNull(BigDecimal num, int fractionDigit) {
+        return toStringOrDefault(num, fractionDigit, null);
+    }
+
+    public static String toStringOrEmpty(BigDecimal num, int fractionDigit) {
+        return toStringOrDefault(num, fractionDigit, "");
     }
 
     public static String toStringOrDefault(Integer num, String dflt) {
@@ -84,6 +96,18 @@ public final class StringNumberUtils {
 
     public static BigDecimal toBigDecimalOrZero(String str) {
         return toBigDecimalOrDefault(str, BigDecimal.ZERO);
+    }
+
+    public static BigDecimal toBigDecimalOrDefault(String str, int scale, BigDecimal dflt) {
+        return StringUtils.isBlank(str) ? dflt : NumberUtils.toScaledBigDecimal(str, scale, RoundingMode.HALF_EVEN);
+    }
+
+    public static BigDecimal toBigDecimalOrNull(String str, int scale) {
+        return toBigDecimalOrDefault(str, scale, null);
+    }
+
+    public static BigDecimal toBigDecimalOrZero(String str, int scale) {
+        return toBigDecimalOrDefault(str, scale, BigDecimal.ZERO);
     }
 
     public static Integer toIntegerOrDefault(String str, Integer dflt) {
