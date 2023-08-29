@@ -26,8 +26,6 @@ public class DateTimeUtilsTest {
 
     private static final ZoneId UTC = ZoneOffset.UTC;
 
-    private ZonedDateTime zdtBase = ZonedDateTime.of(2020, 2, 22, 20, 22, 2, 0, ZoneId.of("Australia/Sydney"));
-
     @BeforeEach
     void setUp() {
         TimeZone.setDefault(TimeZone.getTimeZone("Africa/Cairo"));
@@ -46,7 +44,12 @@ public class DateTimeUtilsTest {
 
         cal = Calendar.getInstance();
         result = DateTimeUtils.parseZoneOffset(cal);
-        assertThat(result.getTotalSeconds(), equalTo(TimeZone.getDefault().getRawOffset() / 1000));
+        // The result was calculated with daylight saving time (DST)
+        // It needs to be compared with getOffset() which is also using DST instead of
+        // getRawOffset()
+        assertThat(
+                result.getTotalSeconds(),
+                equalTo(TimeZone.getDefault().getOffset(System.currentTimeMillis()) / 1000));
     }
 
     @Test
@@ -62,6 +65,8 @@ public class DateTimeUtilsTest {
 
     @Test
     void testParseInstantWithDefaultFormatters() {
+        ZonedDateTime zdtBase = ZonedDateTime.of(2020, 2, 22, 20, 22, 2, 0, ZoneId.of("Australia/Sydney"));
+
         // date: 2020-02-22, time: 20:22:02 (+11:00 Australia/Sydney)
         // date: 2020-02-22, time: 09:22:02 (UTC)
         String datetime = zdtBase.format(DateTimeFormatter.ISO_ZONED_DATE_TIME);
@@ -75,6 +80,9 @@ public class DateTimeUtilsTest {
         log.info("Formatted: {}", datetime);
         result = DateTimeUtils.parseInstantWithDefaultFormatters(datetime);
         assertInstant(result, 2020, 2, 22, 9, 22, 2);
+
+        // When ISO LOCAL format is used, it will use the default timezone which is:
+        // Africa/Cairo
 
         // date: 2020-02-22, time: 20:22:02 (+02:00 Africa/Cairo)
         // date: 2020-02-22, time: 18:22:02 UTC
@@ -108,11 +116,13 @@ public class DateTimeUtilsTest {
 
         // date: 2020-02-22, time: 20:22:02 (+02:00 Africa/Cairo)
         // date: 2021-02-22, time: 18:22:02 UTC
+        // The hour will be 17 instead of 18 due to daylight saving. Check it by
+        // calling:
+        // ZoneId.of("Africa/Cairo").getRules().getDaylightSavings(Instant.now()).toHours()
         datetime = zdtBase.format(DateTimeFormatter.ISO_LOCAL_TIME);
         log.info("Formatted: {}", datetime);
         result = DateTimeUtils.parseInstantWithDefaultFormatters(datetime);
-        log.info("Result   : " + result);
-        assertInstant(result, today.getYear(), today.getMonthValue(), today.getDayOfMonth(), 18, 22, 2);
+        assertInstant(result, today.getYear(), today.getMonthValue(), today.getDayOfMonth(), 17, 22, 2);
 
         // date: 2020-02-22, time: 20:22:02 (+11:00 Australia/Sydney)
         // date: 2021-02-22, time: 09:22:02 UTC
@@ -146,7 +156,6 @@ public class DateTimeUtilsTest {
 
     private void assertInstant(Instant instant, int year, int month, int date, int hour, int minute, int second) {
         ZonedDateTime zdt = instant.atZone(UTC);
-        log.info("Zdt      : " + zdt);
         assertThat(zdt.get(ChronoField.YEAR), equalTo(year));
         assertThat(zdt.get(ChronoField.MONTH_OF_YEAR), equalTo(month));
         assertThat(zdt.get(ChronoField.DAY_OF_MONTH), equalTo(date));
