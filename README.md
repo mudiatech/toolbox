@@ -24,6 +24,6 @@ General-purpose utilities for Java projects
 <dependency>
     <groupId>com.mudiatech</groupId>
     <artifactId>toolbox</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
 </dependency>
 ```
