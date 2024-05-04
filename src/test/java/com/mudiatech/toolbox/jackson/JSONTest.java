@@ -17,8 +17,10 @@ import lombok.Data;
 
 public class JSONTest {
 
+    private static final String NEWLINE = System.lineSeparator();
     private static final String JSON_NO_INDENT = "{\"firstName\":\"Anita\",\"lastName\":\"Saraswati\"}";
-    private static final String JSON_WITH_INDENT = "{\n  \"firstName\" : \"Anita\",\n  \"lastName\" : \"Saraswati\"\n}";
+    private static final String JSON_WITH_INDENT = "{\n  \"firstName\" : \"Anita\",\n  \"lastName\" : \"Saraswati\"\n}"
+            .replaceAll("\n", NEWLINE);
 
     @Test
     void testParse_acceptClass_shouldReturnObject() {

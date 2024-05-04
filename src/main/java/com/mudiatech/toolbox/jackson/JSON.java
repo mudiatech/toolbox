@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,25 @@ public final class JSON {
             }
             return null;
         }
+    }
+
+    public static <T> T parse(String json, JavaType type) {
+        if (json == null) {
+            return null;
+        }
+        try {
+            return MAPPER.readValue(json, type);
+        } catch (IOException e) {
+            if (log.isDebugEnabled()) {
+                log.debug("Unable to parse JSON: {}", e.toString());
+            }
+            return null;
+        }
+    }
+
+    public static <T> T parse(String json, Class<?> parametrized, Class<?>... parameterClasses) {
+        JavaType type = MAPPER.getTypeFactory().constructParametricType(parametrized, parameterClasses);
+        return parse(json, type);
     }
 
     /**
